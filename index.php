@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PHP Workpad</title>
+    <title>PHP Basics Tutorial (Episodes 1-11)</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -65,7 +65,66 @@
 </head>
 <body>
     <div class="container">
-        <!-- Episode 5: Basic PHP Variables and Conditions -->
+        <!-- Episode 1: PHP Tags and Echo -->
+        <div class="episode">
+            <h2>Episode 1: Introduction to PHP</h2>
+            <?php
+                echo "<p>Welcome to PHP Basics!</p>";
+                // Single line comment
+                /* Multi-line
+                   comment */
+            ?>
+        </div>
+
+        <!-- Episode 2: Variables and Data Types -->
+        <div class="episode">
+            <h2>Episode 2: Variables and Data Types</h2>
+            <?php
+                $integer = 42;
+                $float = 3.14;
+                $string = "Hello PHP";
+                $boolean = true;
+                
+                echo "<p>Integer: {$integer}</p>";
+                echo "<p>Float: {$float}</p>";
+                echo "<p>String: {$string}</p>";
+                echo "<p>Boolean: " . ($boolean ? 'true' : 'false') . "</p>";
+            ?>
+        </div>
+
+        <!-- Episode 3: String Operations -->
+        <div class="episode">
+            <h2>Episode 3: String Operations</h2>
+            <?php
+                $firstName = "John";
+                $lastName = "Doe";
+                
+                // String concatenation
+                echo "<p>Concatenation: " . $firstName . " " . $lastName . "</p>";
+                
+                // String interpolation
+                echo "<p>Interpolation: {$firstName} {$lastName}</p>";
+                
+                // String functions
+                echo "<p>Uppercase: " . strtoupper($firstName) . "</p>";
+            ?>
+        </div>
+
+        <!-- Episode 4: Basic Operators -->
+        <div class="episode">
+            <h2>Episode 4: Basic Operators</h2>
+            <?php
+                $num1 = 10;
+                $num2 = 5;
+                
+                echo "<p>Addition: " . ($num1 + $num2) . "</p>";
+                echo "<p>Subtraction: " . ($num1 - $num2) . "</p>";
+                echo "<p>Multiplication: " . ($num1 * $num2) . "</p>";
+                echo "<p>Division: " . ($num1 / $num2) . "</p>";
+            ?>
+        </div>
+
+        <!-- Episode 5: Greetings and Conditions -->
         <div class="episode">
             <h2>Episode 5: Greetings and Conditions</h2>
             <?php
@@ -75,8 +134,8 @@
                 $name = "Chathupa";
                 $read = true;
                 $message = $read ? "You have read {$name}" : "You have not read {$name}";
+                echo "<h5>{$message}</h5>";
             ?>
-            <h5><?php echo $message; ?></h5>
         </div>
 
         <!-- Episode 6: Arrays and Loops -->
@@ -134,19 +193,49 @@
             </ul>
         </div>
 
-        <!-- Episode 11 -->
+        <!-- Episode 9: Functions -->
+        <div class="episode">
+            <h2>Episode 9: Functions</h2>
+            <?php
+                function calculateTotal($prices, $discount = 0) {
+                    $total = array_sum($prices);
+                    return $total - ($total * $discount);
+                }
+
+                $prices = [10, 20, 30];
+                echo "<p>Total without discount: $" . calculateTotal($prices) . "</p>";
+                echo "<p>Total with 10% discount: $" . calculateTotal($prices, 0.1) . "</p>";
+            ?>
+        </div>
+
+        <!-- Episode 10: Form Handling -->
+        <div class="episode">
+            <h2>Episode 10: Form Handling</h2>
+            <form method="POST" action="">
+                <input type="text" name="username" placeholder="Enter username">
+                <button type="submit">Submit</button>
+            </form>
+            <?php
+                if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['username'])) {
+                    $username = htmlspecialchars($_POST['username']);
+                    echo "<p>Welcome, {$username}!</p>";
+                }
+            ?>
+        </div>
+
+        <!-- Episode 11: Business Info -->
         <div class="episode">
             <h2>Episode 11: Business Info</h2>
             <?php 
-            $bussiness = [
-                'name' => 'Laracast',
-                'cost' => 15,
-                'categories' => ["Testing", "php"]
-            ];
+                $business = [
+                    'name' => 'Laracast',
+                    'cost' => 15,
+                    'categories' => ["Testing", "PHP"]
+                ];
             ?>
-            <h1><?php echo $bussiness['name']; ?></h1>
+            <h1><?php echo htmlspecialchars($business['name']); ?></h1>
             <ul>
-                <?php foreach ($bussiness['categories'] as $category): ?>
+                <?php foreach ($business['categories'] as $category): ?>
                     <li><?php echo htmlspecialchars($category); ?></li>
                 <?php endforeach; ?>
             </ul>
