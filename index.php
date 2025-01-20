@@ -70,7 +70,7 @@
             <h2>Episode 5: Greetings and Conditions</h2>
             <?php
                 $greeting = "Hello";
-                echo "<p>{$greeting} Good Morning</p>";
+                echo "<p>{$greeting}, Good Morning</p>";
 
                 $name = "Chathupa";
                 $read = true;
@@ -115,8 +115,6 @@
                     ]
                 ];
 
-                require "index.view.php";
-
                 function filterByAuthor($books, $author) {
                     return array_filter($books, function($book) use ($author) {
                         return $book['author'] === $author;
@@ -132,6 +130,24 @@
                         (<?php echo htmlspecialchars($book['release_year']); ?>) -
                         By <?php echo htmlspecialchars($book['author']); ?>
                     </li>
+                <?php endforeach; ?>
+            </ul>
+        </div>
+
+        <!-- Episode 11 -->
+        <div class="episode">
+            <h2>Episode 11: Business Info</h2>
+            <?php 
+            $bussiness = [
+                'name' => 'Laracast',
+                'cost' => 15,
+                'categories' => ["Testing", "php"]
+            ];
+            ?>
+            <h1><?php echo $bussiness['name']; ?></h1>
+            <ul>
+                <?php foreach ($bussiness['categories'] as $category): ?>
+                    <li><?php echo htmlspecialchars($category); ?></li>
                 <?php endforeach; ?>
             </ul>
         </div>
