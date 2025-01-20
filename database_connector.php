@@ -7,10 +7,12 @@
 </head>
 <body>
     <?php 
+
+    $config = require('config.php');
     try {
         // Database configuration
         $host = 'localhost';
-        $dbname = 'demo';
+        $dbname = 'campus';
         $username = 'root';
         $password = '1234';
         $charset = 'utf8mb4';
@@ -29,7 +31,7 @@
         $pdo = new PDO($dsn, $username, $password, $options);
         
         // Prepare and execute query
-        $statement = $pdo->query("SELECT * FROM untitled_table_1");
+        $statement = $pdo->query("SELECT * FROM lecturer");
         $posts = $statement->fetchAll();
         
         // Display results in a more readable format
