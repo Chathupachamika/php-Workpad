@@ -1,4 +1,4 @@
-namespace App\Controllers;
+<!-- namespace App\Controllers;
 
 class NotesController {
     private $db;
@@ -28,4 +28,4 @@ class NotesController {
         if (empty($data['content'])) $errors['content'] = "Content is required";
         return $errors;
     }
-}
+} -->
