@@ -24,3 +24,6 @@ Route::get('/contact', function () {
     return view('contact');
 });
 
+Route::get('/register', [AuthController::class, 'showRegistrationForm'])->name('register');
+Route::post('/register', [AuthController::class, 'register']);
+
