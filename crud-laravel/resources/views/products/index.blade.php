@@ -15,6 +15,8 @@
             <i class="fas fa-box"></i> Products Management
         </h1>
 
+        @include('products.search')
+
         <div class="mb-6 text-right">
             <a href="{{ route('product.create') }}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded inline-flex items-center">
                 <i class="fas fa-plus mr-2"></i> Add New Product

@@ -7,51 +7,59 @@ use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
-    public function index(){
-        $products = Product::all();
-        return view('products.index',['products'=>$products]);
+    public function index(Request $request)
+    {
+        $search = $request->input('search');
+        $products = Product::query()
+            ->where('name', 'LIKE', "%{$search}%")
+            ->orWhere('description', 'LIKE', "%{$search}%")
+            ->get();
 
+        return view('products.index', compact('products'));
     }
 
-    public function create(){
+    public function create()
+    {
         return view('products.create');
     }
 
-    public function store(Request $request){
+    public function store(Request $request)
+    {
         $DATA = $request->validate([
-            'name'  => 'required',
-            'qty'=> 'required|numeric',
-            'price'=> 'required|decimal:0,2',
-            'description'=> 'nullable'
+            'name' => 'required',
+            'qty' => 'required|numeric',
+            'price' => 'required|decimal:0,2',
+            'description' => 'nullable'
         ]);
 
-        $newProduct = Product::create($DATA);
+        Product::create($DATA);
 
-        return redirect()->route('product.index');
+        return redirect()->route('product.index')->with('success', 'Product created successfully.');
     }
 
-    public function edit(Product $product){
-        return view('products.edit',['product'=>$product]);
+    public function edit(Product $product)
+    {
+        return view('products.edit', ['product' => $product]);
     }
 
-
-    public function update(Request $request, Product $product){
+    public function update(Request $request, Product $product)
+    {
         $DATA = $request->validate([
-            'name'  => 'required',
-            'qty'=> 'required|numeric',
-            'price'=> 'required|decimal:0,2',
-            'description'=> 'nullable'
+            'name' => 'required',
+            'qty' => 'required|numeric',
+            'price' => 'required|decimal:0,2',
+            'description' => 'nullable'
         ]);
 
         $product->update($DATA);
 
-        return redirect()->route('product.index');
+        return redirect()->route('product.index')->with('success', 'Product updated successfully.');
     }
 
-
-    public function destroy(Product $product){
+    public function destroy(Product $product)
+    {
         $product->delete();
-        return redirect()->route('product.index');
+        return redirect()->route('product.index')->with('success', 'Product deleted successfully.');
     }
 }
 

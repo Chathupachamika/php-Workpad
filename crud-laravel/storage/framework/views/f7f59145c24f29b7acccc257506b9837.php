@@ -15,6 +15,8 @@
             <i class="fas fa-box"></i> Products Management
         </h1>
 
+        <?php echo $__env->make('products.search', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+
         <div class="mb-6 text-right">
             <a href="<?php echo e(route('product.create')); ?>" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded inline-flex items-center">
                 <i class="fas fa-plus mr-2"></i> Add New Product
