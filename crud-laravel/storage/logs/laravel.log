@@ -655,3 +655,26 @@
 #56 E:\\laravel\\new\\crud-app\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\resources\\server.php(23): require_once('...')
 #57 {main}
 "} 
+[2025-01-25 16:33:00] local.ERROR: The process ""C:\Program Files\php\php.exe" artisan queue:work --once --name=default --queue=default --backoff=0 --memory=128 --sleep=3 --tries=1" exceeded the timeout of 60 seconds. {"exception":"[object] (Symfony\\Component\\Process\\Exception\\ProcessTimedOutException(code: 0): The process \"\"C:\\Program Files\\php\\php.exe\" artisan queue:work --once --name=default --queue=default --backoff=0 --memory=128 --sleep=3 --tries=1\" exceeded the timeout of 60 seconds. at E:\\laravel\\git repo\\crud-laravel\\vendor\\symfony\\process\\Process.php:1182)
+[stacktrace]
+#0 E:\\laravel\\git repo\\crud-laravel\\vendor\\symfony\\process\\Process.php(451): Symfony\\Component\\Process\\Process->checkTimeout()
+#1 E:\\laravel\\git repo\\crud-laravel\\vendor\\symfony\\process\\Process.php(252): Symfony\\Component\\Process\\Process->wait()
+#2 E:\\laravel\\git repo\\crud-laravel\\vendor\\laravel\\framework\\src\\Illuminate\\Queue\\Listener.php(181): Symfony\\Component\\Process\\Process->run()
+#3 E:\\laravel\\git repo\\crud-laravel\\vendor\\laravel\\framework\\src\\Illuminate\\Queue\\Listener.php(92): Illuminate\\Queue\\Listener->runProcess()
+#4 E:\\laravel\\git repo\\crud-laravel\\vendor\\laravel\\framework\\src\\Illuminate\\Queue\\Console\\ListenCommand.php(75): Illuminate\\Queue\\Listener->listen()
+#5 E:\\laravel\\git repo\\crud-laravel\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(36): Illuminate\\Queue\\Console\\ListenCommand->handle()
+#6 E:\\laravel\\git repo\\crud-laravel\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Util.php(43): Illuminate\\Container\\BoundMethod::{closure:Illuminate\\Container\\BoundMethod::call():35}()
+#7 E:\\laravel\\git repo\\crud-laravel\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(95): Illuminate\\Container\\Util::unwrapIfClosure()
+#8 E:\\laravel\\git repo\\crud-laravel\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(35): Illuminate\\Container\\BoundMethod::callBoundMethod()
+#9 E:\\laravel\\git repo\\crud-laravel\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php(694): Illuminate\\Container\\BoundMethod::call()
+#10 E:\\laravel\\git repo\\crud-laravel\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Command.php(213): Illuminate\\Container\\Container->call()
+#11 E:\\laravel\\git repo\\crud-laravel\\vendor\\symfony\\console\\Command\\Command.php(279): Illuminate\\Console\\Command->execute()
+#12 E:\\laravel\\git repo\\crud-laravel\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Command.php(182): Symfony\\Component\\Console\\Command\\Command->run()
+#13 E:\\laravel\\git repo\\crud-laravel\\vendor\\symfony\\console\\Application.php(1094): Illuminate\\Console\\Command->run()
+#14 E:\\laravel\\git repo\\crud-laravel\\vendor\\symfony\\console\\Application.php(342): Symfony\\Component\\Console\\Application->doRunCommand()
+#15 E:\\laravel\\git repo\\crud-laravel\\vendor\\symfony\\console\\Application.php(193): Symfony\\Component\\Console\\Application->doRun()
+#16 E:\\laravel\\git repo\\crud-laravel\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(198): Symfony\\Component\\Console\\Application->run()
+#17 E:\\laravel\\git repo\\crud-laravel\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(1208): Illuminate\\Foundation\\Console\\Kernel->handle()
+#18 E:\\laravel\\git repo\\crud-laravel\\artisan(13): Illuminate\\Foundation\\Application->handleCommand()
+#19 {main}
+"} 
