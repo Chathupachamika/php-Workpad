@@ -7,29 +7,33 @@ use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
-    public function index(Request $request){
-        $query = Product::query();
+    public function index(Request $request)
+    {
+        $search = $request->input('search');
 
-        if ($request->has('search')) {
-            $search = $request->input('search');
-            $query->where('name', 'LIKE', "%{$search}%")
-                  ->orWhere('description', 'LIKE', "%{$search}%");
-        }
+        // Fetch products with search functionality (optional)
+        $products = Product::query()
+            ->when($search, function ($query, $search) {
+                $query->where('name', 'like', "%{$search}%");
+            })
+            ->get();
 
-        $products = $query->get();
-        return view('products.index',['products'=>$products]);
+        // Pass $products to the view
+        return view('products.index', compact('products'));
     }
 
-    public function create(){
+    public function create()
+    {
         return view('products.create');
     }
 
-    public function store(Request $request){
+    public function store(Request $request)
+    {
         $DATA = $request->validate([
             'name'  => 'required',
-            'qty'=> 'required|numeric',
-            'price'=> 'required|decimal:0,2',
-            'description'=> 'nullable'
+            'qty' => 'required|numeric',
+            'price' => 'required|decimal:0,2',
+            'description' => 'nullable'
         ]);
 
         $newProduct = Product::create($DATA);
@@ -37,17 +41,18 @@ class ProductController extends Controller
         return redirect()->route('product.index');
     }
 
-    public function edit(Product $product){
-        return view('products.edit',['product'=>$product]);
+    public function edit(Product $product)
+    {
+        return view('products.edit', ['product' => $product]);
     }
 
-
-    public function update(Request $request, Product $product){
+    public function update(Request $request, Product $product)
+    {
         $DATA = $request->validate([
             'name'  => 'required',
-            'qty'=> 'required|numeric',
-            'price'=> 'required|decimal:0,2',
-            'description'=> 'nullable'
+            'qty' => 'required|numeric',
+            'price' => 'required|decimal:0,2',
+            'description' => 'nullable'
         ]);
 
         $product->update($DATA);
@@ -55,8 +60,8 @@ class ProductController extends Controller
         return redirect()->route('product.index');
     }
 
-
-    public function destroy(Product $product){
+    public function destroy(Product $product)
+    {
         $product->delete();
         return redirect()->route('product.index');
     }
