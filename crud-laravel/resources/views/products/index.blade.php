@@ -6,7 +6,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-K6qC1J7PgrZAwFqxB1xCjN5GvHYqQMK3TL9M13KUhlZ76PNhvGhtq1c0oTFD5U9q6O3HzR0NH2mqLZnXxIMVYw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <title>Products</title>
 </head>
 <body class="bg-gray-100 p-6">
@@ -15,7 +15,21 @@
             <i class="fas fa-box"></i> Products Management
         </h1>
 
+
         @include('products.search')
+
+        <form method="GET" action="{{ route('product.index') }}" class="mb-4 bg-gray-100 p-4 rounded shadow-md">
+            <div class="flex items-center">
+                <div class="relative w-full col-6">
+                    <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-500">
+                        <i class="fas fa-search"></i>
+                    </span>
+                    <input type="text" name="search" placeholder="Search products..." class="border rounded py-2 pl-10 pr-4 mb-2 w-full">
+                </div>
+                <button type="submit" class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded col-6 ml-2">Search</button>
+            </div>
+        </form>
+
 
         <div class="mb-6 text-right">
             <a href="{{ route('product.create') }}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded inline-flex items-center">

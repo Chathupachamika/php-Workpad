@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
+
     public function index(Request $request)
     {
         $search = $request->input('search');
@@ -16,6 +17,19 @@ class ProductController extends Controller
             ->get();
 
         return view('products.index', compact('products'));
+
+    public function index(Request $request){
+        $query = Product::query();
+
+        if ($request->has('search')) {
+            $search = $request->input('search');
+            $query->where('name', 'LIKE', "%{$search}%")
+                  ->orWhere('description', 'LIKE', "%{$search}%");
+        }
+
+        $products = $query->get();
+        return view('products.index',['products'=>$products]);
+
     }
 
     public function create()
