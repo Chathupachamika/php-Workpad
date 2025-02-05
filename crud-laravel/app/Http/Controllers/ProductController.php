@@ -3,33 +3,23 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\RecycleBin;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
-
     public function index(Request $request)
     {
         $search = $request->input('search');
+
         $products = Product::query()
-            ->where('name', 'LIKE', "%{$search}%")
-            ->orWhere('description', 'LIKE', "%{$search}%")
+            ->when($search, function ($query, $search) {
+                $query->where('name', 'like', "%{$search}%");
+            })
             ->get();
 
         return view('products.index', compact('products'));
-
-    public function index(Request $request){
-        $query = Product::query();
-
-        if ($request->has('search')) {
-            $search = $request->input('search');
-            $query->where('name', 'LIKE', "%{$search}%")
-                  ->orWhere('description', 'LIKE', "%{$search}%");
-        }
-
-        $products = $query->get();
-        return view('products.index',['products'=>$products]);
-
     }
 
     public function create()
@@ -40,15 +30,17 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $DATA = $request->validate([
-            'name' => 'required',
+            'name'  => 'required',
             'qty' => 'required|numeric',
             'price' => 'required|decimal:0,2',
             'description' => 'nullable'
         ]);
 
-        Product::create($DATA);
+        $newProduct = Product::create($DATA);
 
-        return redirect()->route('product.index')->with('success', 'Product created successfully.');
+        return redirect()
+            ->route('product.index')
+            ->with('success', 'Product created successfully');
     }
 
     public function edit(Product $product)
@@ -59,7 +51,7 @@ class ProductController extends Controller
     public function update(Request $request, Product $product)
     {
         $DATA = $request->validate([
-            'name' => 'required',
+            'name'  => 'required',
             'qty' => 'required|numeric',
             'price' => 'required|decimal:0,2',
             'description' => 'nullable'
@@ -67,16 +59,35 @@ class ProductController extends Controller
 
         $product->update($DATA);
 
-        return redirect()->route('product.index')->with('success', 'Product updated successfully.');
+        return redirect()
+            ->route('product.index')
+            ->with('success', 'Product updated successfully');
     }
-
-
 
     public function destroy(Product $product)
     {
+        try {
+            DB::transaction(function () use ($product) {
+                // Move to recycle bin
+                RecycleBin::create([
+                    'product_id' => $product->id,
+                    'name' => $product->name,
+                    'qty' => $product->qty,
+                    'price' => $product->price,
+                    'description' => $product->description,
+                    'deleted_at' => now()
+                ]);
 
-        $product->delete();
-        return redirect()->route('product.index')->with('success', 'Product deleted successfully.');
+                $product->delete();
+            });
+
+            return redirect()
+                ->route('product.index')
+                ->with('success', 'Product moved to recycle bin');
+        } catch (\Exception $e) {
+            return redirect()
+                ->route('product.index')
+                ->with('error', 'Error moving product to recycle bin');
+        }
     }
 }
-
