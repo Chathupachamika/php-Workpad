@@ -4,43 +4,49 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\OrderController;
-use App\Http\Controllers\RecycleBinController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return redirect('/register');
 });
 
-Route::get('/dashboard', function () {
-    $products = \App\Models\Product::all();
-    return view('dashboard', compact('products'));
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::middleware(['auth', 'verified'])->group(function () {
+    // Dashboard
+    Route::get('/dashboard', function () {
+        $products = \App\Models\Product::all();
+        return view('dashboard', compact('products'));
+    })->name('dashboard');
 
-Route::middleware('auth')->group(function () {
+    // Profile routes
+    Route::controller(ProfileController::class)->group(function () {
+        Route::get('/profile', 'edit')->name('profile.edit');
+        Route::patch('/profile', 'update')->name('profile.update');
+        Route::delete('/profile', 'destroy')->name('profile.destroy');
+    });
 
-    Route::get('/product', [ProductController::class, 'index'])->name('product.index');
-    Route::get('/product/create', [ProductController::class, 'create'])->name('product.create');
-    Route::post('/product', [ProductController::class, 'store'])->name('product.store');
-    Route::get('/product/{product}/edit', [ProductController::class, 'edit'])->name('product.edit');
-    Route::put('/product/{product}/update', [ProductController::class, 'update'])->name('product.update');
-    Route::delete('/product/{product}/destroy', [ProductController::class, 'destroy'])->name('product.destroy');
+    // Product routes
+    Route::controller(ProductController::class)->group(function () {
+        // Main product routes
+        Route::get('/products', 'index')->name('product.index');
+        Route::get('/products/create', 'create')->name('product.create');
+        Route::post('/products', 'store')->name('product.store');
+        Route::get('/products/{product}/edit', 'edit')->name('product.edit');
+        Route::put('/products/{product}', 'update')->name('product.update');
+        Route::delete('/products/{product}', 'destroy')->name('product.destroy');
 
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+        // Recycle bin routes
+        Route::get('/products/recycle-bin', 'recycleBin')->name('product.recycle-bin');
+        Route::post('/products/{product}/restore', 'restore')->name('product.restore');
+        Route::delete('/products/{product}/permanent-delete', 'permanentDelete')->name('product.permanent-delete');
+    });
 
-// Product routes
-Route::resource('product', ProductController::class);
-
-// Recycle bin routes
-Route::get('/recycle-bin', [RecycleBinController::class, 'index'])->name('recycle-bin.index');
-Route::post('/recycle-bin/restore/{id}', [RecycleBinController::class, 'restore'])->name('recycle-bin.restore');
-Route::delete('/recycle-bin/{id}', [RecycleBinController::class, 'permanentDelete'])->name('recycle-bin.permanent-delete');
-
-    Route::get('/customers', [CustomerController::class, 'index']);
-Route::post('/customers', [CustomerController::class, 'store']);
-Route::put('/customers/{id}', [CustomerController::class, 'update']);
-Route::delete('/customers/{id}', [CustomerController::class, 'destroy']);
+    // Customer routes
+    Route::controller(CustomerController::class)->group(function () {
+        Route::get('/customers', 'index')->name('customer.index');
+        Route::post('/customers', 'store')->name('customer.store');
+        Route::put('/customers/{customer}', 'update')->name('customer.update');
+        Route::delete('/customers/{customer}', 'destroy')->name('customer.destroy');
+    });
 });
 
 require __DIR__.'/auth.php';
