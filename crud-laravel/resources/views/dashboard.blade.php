@@ -73,7 +73,7 @@
                         </div>
                     </div>
                     <div class="col-span-3">
-                        <img src="{{ asset('images/image.jpg') }}" alt="Dashboard Image" class="w-full h-auto object-cover rounded-lg">
+                        <img src="{{ asset('images/image.jpg') }}" alt="Dashboard Image" class="w-1/2 h-auto object-cover rounded-lg">
                     </div>
                 </div>
             </div>

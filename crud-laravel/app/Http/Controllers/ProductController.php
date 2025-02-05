@@ -11,14 +11,12 @@ class ProductController extends Controller
     {
         $search = $request->input('search');
 
-        // Fetch products with search functionality (optional)
         $products = Product::query()
             ->when($search, function ($query, $search) {
                 $query->where('name', 'like', "%{$search}%");
             })
             ->get();
 
-        // Pass $products to the view
         return view('products.index', compact('products'));
     }
 

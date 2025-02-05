@@ -2722,3 +2722,7 @@
 #60 E:\\laravel\\git repo\\crud-laravel\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\resources\\server.php(23): require_once('...')
 #61 {main}
 "} 
+[2025-02-05 03:17:27] local.ERROR: Maximum execution time of 30 seconds exceeded {"userId":4,"exception":"[object] (Symfony\\Component\\ErrorHandler\\Error\\FatalError(code: 0): Maximum execution time of 30 seconds exceeded at E:\\laravel\\git repo\\crud-laravel\\storage\\framework\\views\\1decd4bcab10b0f8696103ee2270c93f.php:1)
+[stacktrace]
+#0 {main}
+"} 
