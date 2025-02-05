@@ -18,7 +18,7 @@ if(isset($_POST['submit'])) {
         'mobile' => $_POST['mobile'] ?? ''
     ];
 
-    // Validation
+    
     if (empty($_POST['name'])) {
         $errors['name'] = 'Name is required';
     } elseif (strlen($_POST['name']) > 50) {
