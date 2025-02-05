@@ -63,10 +63,10 @@
                             </div>
                             <p class="text-xs text-gray-600 mb-2">Manage and grow your customer relationships.</p>
                             <div class="flex space-x-1">
-                                <a href="#" class="block bg-purple-500 hover:bg-purple-600 text-white py-1 px-2 rounded-md text-xs flex items-center">
+                                <a href="/customers" class="block bg-purple-500 hover:bg-purple-600 text-white py-1 px-2 rounded-md text-xs flex items-center">
                                     <i class="fas fa-user-friends mr-1"></i> Customer List
                                 </a>
-                                <a href="#" class="block bg-indigo-500 hover:bg-indigo-600 text-white py-1 px-2 rounded-md text-xs flex items-center">
+                                <a href="/customers" class="block bg-indigo-500 hover:bg-indigo-600 text-white py-1 px-2 rounded-md text-xs flex items-center">
                                     <i class="fas fa-user-plus mr-1"></i> Add Customer
                                 </a>
                             </div>
