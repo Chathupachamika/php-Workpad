@@ -20,6 +20,9 @@
 
         @include('products.search')
 
+
+        @include('products.search')
+
         <form method="GET" action="{{ route('product.index') }}" class="mb-4 bg-gray-100 p-4 rounded shadow-md">
             <div class="flex items-center">
                 <div class="relative w-full col-6">
