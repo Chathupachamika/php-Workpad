@@ -3,16 +3,23 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\RecycleBin;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $products = Product::all();
-        $recycledCount = Product::onlyTrashed()->count();
+        $search = $request->input('search');
 
-        return view('products.index', compact('products', 'recycledCount'));
+        $products = Product::query()
+            ->when($search, function ($query, $search) {
+                $query->where('name', 'like', "%{$search}%");
+            })
+            ->get();
+
+        return view('products.index', compact('products'));
     }
 
     public function create()
@@ -22,70 +29,65 @@ class ProductController extends Controller
 
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'qty' => 'required|integer|min:0',
-            'price' => 'required|numeric|min:0',
-            'description' => 'nullable|string'
+        $DATA = $request->validate([
+            'name'  => 'required',
+            'qty' => 'required|numeric',
+            'price' => 'required|decimal:0,2',
+            'description' => 'nullable'
         ]);
 
-        Product::create($validated);
+        $newProduct = Product::create($DATA);
 
-        return redirect()->route('product.index')
-            ->with('success', 'Product created successfully.');
+        return redirect()
+            ->route('product.index')
+            ->with('success', 'Product created successfully');
     }
 
     public function edit(Product $product)
     {
-        return view('products.edit', compact('product'));
+        return view('products.edit', ['product' => $product]);
     }
 
     public function update(Request $request, Product $product)
     {
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'qty' => 'required|integer|min:0',
-            'price' => 'required|numeric|min:0',
-            'description' => 'nullable|string'
+        $DATA = $request->validate([
+            'name'  => 'required',
+            'qty' => 'required|numeric',
+            'price' => 'required|decimal:0,2',
+            'description' => 'nullable'
         ]);
 
-        $product->update($validated);
+        $product->update($DATA);
 
-        return redirect()->route('product.index')
-            ->with('success', 'Product updated successfully.');
+        return redirect()
+            ->route('product.index')
+            ->with('success', 'Product updated successfully');
     }
 
     public function destroy(Product $product)
     {
-        $product->delete();
+        try {
+            DB::transaction(function () use ($product) {
+                // Move to recycle bin
+                RecycleBin::create([
+                    'product_id' => $product->id,
+                    'name' => $product->name,
+                    'qty' => $product->qty,
+                    'price' => $product->price,
+                    'description' => $product->description,
+                    'deleted_at' => now()
+                ]);
 
-        return redirect()->route('product.index')
-            ->with('success', 'Product moved to recycle bin.');
-    }
+                $product->delete();
+            });
 
-    public function recycleBin()
-    {
-        $recycledItems = Product::onlyTrashed()->get();
-        $recycledCount = $recycledItems->count();
-
-        return view('products.recycle-bin.index', compact('recycledItems', 'recycledCount'));
-    }
-
-    public function restore($id)
-    {
-        $product = Product::onlyTrashed()->findOrFail($id);
-        $product->restore();
-
-        return redirect()->route('product.recycle-bin')
-            ->with('success', 'Product restored successfully.');
-    }
-
-    public function permanentDelete($id)
-    {
-        $product = Product::onlyTrashed()->findOrFail($id);
-        $product->forceDelete();
-
-        return redirect()->route('product.recycle-bin')
-            ->with('success', 'Product permanently deleted.');
+            return redirect()
+                ->route('product.index')
+                ->with('success', 'Product moved to recycle bin');
+        } catch (\Exception $e) {
+            return redirect()
+                ->route('product.index')
+                ->with('error', 'Error moving product to recycle bin');
+        }
     }
 }
