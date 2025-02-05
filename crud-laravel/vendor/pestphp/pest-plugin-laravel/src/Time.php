@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Pest\Laravel;
 
-use DateTimeInterface;
-
 /**
  * Freeze time.
  *
@@ -42,10 +40,11 @@ function travel($value)
 /**
  * Travel to another time.
  *
+ * @param  \DateTimeInterface|\Closure|\Illuminate\Support\Carbon|string|bool|null  $date
  * @param  callable|null  $callback
  * @return mixed
  */
-function travelTo(DateTimeInterface $date, $callback = null)
+function travelTo($date, $callback = null)
 {
     return test()->travelTo(...func_get_args());
 }
