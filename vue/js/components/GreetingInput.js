@@ -18,6 +18,7 @@ export default {
         </div>
     `,
 
+
     data() {
         return {
             name: ''

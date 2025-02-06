@@ -98,6 +98,20 @@ export default {
                     complete: false,
                     description: 'Create a complete application',
                     tag: 'project'
+                },
+                { 
+                    id: 5, 
+                    name: 'Build ToDo App', 
+                    complete: false,
+                    description: 'Create a complete application',
+                    tag: 'project'
+                },
+                { 
+                    id: 6, 
+                    name: 'Build ToDo App', 
+                    complete: false,
+                    description: 'Create a complete application',
+                    tag: 'project'
                 }
             ]
         };
