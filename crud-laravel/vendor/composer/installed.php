@@ -3,7 +3,15 @@
         'name' => 'laravel/laravel',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
+<<<<<<< HEAD
         'reference' => '49512a6a449d636a4a08ebbb9458891406da3826',
+=======
+
+        'reference' => '981196efe0d02f47922624f6342795b3039e055d',
+
+        'reference' => 'ea70c1684fe62de2dcf6ae6d4b391ce36050136f',
+
+>>>>>>> d56fe7535543792688a90e6dafdd4a820d4afc8b
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -412,6 +420,15 @@
                 0 => '*',
             ),
         ),
+        'laravel/breeze' => array(
+            'pretty_version' => 'v2.3.2',
+            'version' => '2.3.2.0',
+            'reference' => '2a4764055792b14e0e571a710adbda9c9eb300d4',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../laravel/breeze',
+            'aliases' => array(),
+            'dev_requirement' => true,
+        ),
         'laravel/framework' => array(
             'pretty_version' => 'v11.39.1',
             'version' => '11.39.1.0',
@@ -424,7 +441,15 @@
         'laravel/laravel' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
+<<<<<<< HEAD
             'reference' => '49512a6a449d636a4a08ebbb9458891406da3826',
+=======
+
+            'reference' => '981196efe0d02f47922624f6342795b3039e055d',
+
+            'reference' => 'ea70c1684fe62de2dcf6ae6d4b391ce36050136f',
+
+>>>>>>> d56fe7535543792688a90e6dafdd4a820d4afc8b
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -662,9 +687,9 @@
             'dev_requirement' => true,
         ),
         'pestphp/pest-plugin-laravel' => array(
-            'pretty_version' => 'v3.0.0',
-            'version' => '3.0.0.0',
-            'reference' => '7dd98c0c3b3542970ec21fce80ec5c88916ac469',
+            'pretty_version' => 'v3.1.0',
+            'version' => '3.1.0.0',
+            'reference' => '1c4e994476375c72aa7aebaaa97aa98f5d5378cd',
             'type' => 'library',
             'install_path' => __DIR__ . '/../pestphp/pest-plugin-laravel',
             'aliases' => array(),
