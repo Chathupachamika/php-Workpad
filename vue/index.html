@@ -9,105 +9,16 @@
 </head>
 <body class="bg-gray-100 text-gray-900 flex flex-col items-center p-6">
 
-
     <div id="app1"></div>
 
     <div id="app2" class="mt-6"></div>
 
     <script type="module">
         import App from "./js/components/App.js";
+        import Form from "./js/components/Form.js";
 
         Vue.createApp(App).mount("#app1");
-
-    <div id="app" class="bg-white shadow-lg rounded-lg p-6 w-full max-w-md">
-        <h1 class="text-3xl font-bold text-center mb-4 text-blue-600">Episode 1-3</h1>
-        <div class="mb-4">
-            <input 
-                type="text" 
-                v-model="greeting" 
-                class="border border-gray-300 rounded p-2 w-full focus:outline-none focus:ring focus:ring-blue-300"
-                placeholder="Type something..."
-            >
-            <p class="mt-2 text-lg">{{ greeting }} ({{ greeting.length }})</p>
-        </div>
-        <button 
-            @click="toggleColor"
-            :class="buttonClasses"
-            class="px-4 py-2 rounded-lg text-white font-bold transition duration-300"
-        >
-            Click Me
-        </button>
-        <div class="mt-6">
-            <h2 class="text-xl font-semibold text-gray-700">Assignments</h2>
-            <ul class="mt-2 space-y-2">
-                <li v-for="(task, index) in assignments" :key="index" class="flex items-center">
-                    <input type="checkbox" v-model="task.completed" class="mr-2">
-                    <span :class="task.completed ? 'line-through text-gray-500' : ''">{{ task.name }}</span>
-                </li>
-            </ul>
-        </div>
-        <div v-if="completedAssignments.length" class="mt-6">
-            <h2 class="text-xl font-semibold text-green-600">Completed Assignments</h2>
-            <ul class="mt-2 space-y-2">
-                <li v-for="(task, index) in completedAssignments" :key="index" class="text-green-600">
-                    ✅ {{ task.name }}
-                </li>
-            </ul>
-        </div>
-    </div>
-
-
-    <div id="app" class="bg-white shadow-lg rounded-lg p-6 w-full max-w-md mt-4">
-        <h1 class="text-3xl font-bold text-center mb-4 text-blue-600">Episode 3-7</h1>
-      <app-button>Click Me</app-button>
-        </div>
-
-
-    <script>
-        import AppButton from './components/AppButton.vue';
-let app={
-    components:{
-        'app-button':{
-            template:
-            <button 
-            @click="toggleColor"
-            :class="buttonClasses"
-            alert="hello"
-            class="px-4 py-2 rounded-lg text-white font-bold transition duration-300"
-            >
-            <slot/>
-            </button>
-        },
-    }
-};
-
-
-        Vue.createApp({
-            data() {
-                return {
-                    greeting: 'Hello Vue!',
-                    isRed: false,
-                    assignments: [
-                        { name: "Finish the assignment", completed: false },
-                        { name: "Review the Vue.js documentation", completed: false },
-                        { name: "Review the Tailwind CSS documentation", completed: false }
-                    ]
-                };
-            },
-            computed: {
-                buttonClasses() {
-                    return this.isRed ? "bg-red-500 hover:bg-red-700" : "bg-blue-500 hover:bg-blue-700";
-                },
-                completedAssignments() {
-                    return this.assignments.filter(task => task.completed);
-                }
-            },
-            methods: {
-                toggleColor() {
-                    this.isRed = !this.isRed;
-                }
-            }
-        }).mount("#app");
+        Vue.createApp(Form).mount("#app2");
 
     </script>
 
