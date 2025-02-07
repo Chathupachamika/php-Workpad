@@ -14,8 +14,9 @@
                     v-slot="{ field, errors }">
                     <input 
                       v-bind="field"
-                      id="product-name"
                       autocomplete="off"
+                      v-model="item.name"
+                      placeholder="Enter product name"
                       autofocus
                       class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
                     />
@@ -32,8 +33,9 @@
                     v-slot="{ field, errors }">
                     <input 
                       v-bind="field"
-                      id="price"
+                      v-model="item.price"
                       autocomplete="off"
+                      placeholder="Enter price"
                       class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
                     />
                     <span class="text-sm/6 text-red-600">{{ errors && errors[0] }}</span>
@@ -49,8 +51,9 @@
                     v-slot="{ field, errors }">
                     <input 
                       v-bind="field"
-                      id="qty"
+                      v-model="item.quantity"
                       autocomplete="off"
+                      placeholder="Enter quantity"
                       class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
                     />
                     <span class="text-sm/6 text-red-600">{{ errors && errors[0] }}</span>
@@ -67,8 +70,9 @@
                 v-slot="{ field, errors }">
                 <textarea 
                   v-bind="field"
-                  id="description"
+                  v-model="item.description"
                   rows="3"
+                  placeholder="Enter product description"
                   class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
                 ></textarea>
                 <span class="text-sm/6 text-red-600">{{ errors && errors[0] }}</span>
@@ -96,9 +100,10 @@
         </div>
       </div>
   
-      <div class="mt-6 flex items-center justify-end gap-x-6">
-        <button type="button" class="text-sm/6 font-semibold text-gray-900">Cancel</button>
+      <div class="mt-4 mr-4 mb-4 flex items-center justify-end gap-x-6">
         <button type="submit" class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Save</button>
+        <button type="button" class="text-sm/6 font-semibold text-gray-900">Cancel</button>
+        
       </div>
     </form>
   </template>
@@ -106,6 +111,15 @@
   <script setup>
   import { PhotoIcon } from '@heroicons/vue/24/solid'
   import { Field } from 'vee-validate'
+  import { reactive } from 'vue'
+  
+  const item = reactive({
+    name: '',
+    price: '',
+    quantity: 0,
+    description: '',
+    coverPhoto: ''
+  })
   
   const onSubmit = async (values) => {
     console.log(values)

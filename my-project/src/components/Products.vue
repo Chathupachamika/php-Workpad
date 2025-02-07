@@ -35,6 +35,14 @@ const products = [
     price: '$35',
     color: 'Black',
   },
-  // More products...
+  {
+    id: 2,
+    name: 'Basic Tee',
+    href: '#',
+    imageSrc: 'https://tailwindui.com/plus/img/ecommerce-images/product-page-01-related-product-02.jpg',
+    imageAlt: "Front of men's Basic Tee in black.",
+    price: '$25',
+    color: 'White',
+  },
 ]
 </script>
