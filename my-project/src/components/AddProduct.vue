@@ -1,43 +1,80 @@
 <template>
-    <form>
+    <form @submit.prevent="onSubmit">
       <div class="space-y-12">
         <div class="border-b border-gray-900/10 pb-12 ml-5">
           <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
             <div class="sm:col-span-4">
-             <div class="mt-2">
-                
+              <div class="mt-2">
                 <div class="sm:col-span-3">
-              <label for="product-name" class="block text-sm/6 font-medium text-gray-900">Product Name</label>
-              <div class="mt-2">
-                <input type="text" name="product-name" id="product-name" autocomplete="off" class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" />
-              </div>
-            </div>
+                  <label for="product-name" class="block text-sm/6 font-medium text-gray-900">Product Name</label>
+                  <Field 
+                    name="productName" 
+                    type="text"
+                    rules="required"
+                    v-slot="{ field, errors }">
+                    <input 
+                      v-bind="field"
+                      id="product-name"
+                      autocomplete="off"
+                      autofocus
+                      class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+                    />
+                    <span class="text-sm/6 text-red-600">{{ errors && errors[0] }}</span>
+                  </Field>
+                </div>
   
-            <div class="sm:col-span-3 mt-2">
-              <label for="price" class="block text-sm/6 font-medium text-gray-900">Price</label>
-              <div class="mt-2">
-                <input type="number" name="price" id="price" autocomplete="off" class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" />
-              </div>
-            </div>
-
-            <div class="sm:col-span-3 mt-2">
-              <label for="qty" class="block text-sm/6 font-medium text-gray-900">Quantity</label>
-              <div class="mt-2">
-                <input type="number" name="qty" id="qty" autocomplete="off" class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" />
-              </div>
-            </div>
+                <div class="sm:col-span-3 mt-2">
+                  <label for="price" class="block text-sm/6 font-medium text-gray-900">Price</label>
+                  <Field 
+                    name="price" 
+                    type="number"
+                    rules="required|decimal:2"
+                    v-slot="{ field, errors }">
+                    <input 
+                      v-bind="field"
+                      id="price"
+                      autocomplete="off"
+                      class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+                    />
+                    <span class="text-sm/6 text-red-600">{{ errors && errors[0] }}</span>
+                  </Field>
+                </div>
+  
+                <div class="sm:col-span-3 mt-2">
+                  <label for="qty" class="block text-sm/6 font-medium text-gray-900">Quantity</label>
+                  <Field 
+                    name="quantity" 
+                    type="number"
+                    rules="required|integer"
+                    v-slot="{ field, errors }">
+                    <input 
+                      v-bind="field"
+                      id="qty"
+                      autocomplete="off"
+                      class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+                    />
+                    <span class="text-sm/6 text-red-600">{{ errors && errors[0] }}</span>
+                  </Field>
+                </div>
               </div>
             </div>
   
             <div class="col-span-full">
               <label for="description" class="block text-sm/6 font-medium text-gray-900">Description</label>
-              <div class="mt-2">
-                <textarea name="description" id="description" rows="3" class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"></textarea>
-              </div>
+              <Field 
+                name="description" 
+                rules="required"
+                v-slot="{ field, errors }">
+                <textarea 
+                  v-bind="field"
+                  id="description"
+                  rows="3"
+                  class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+                ></textarea>
+                <span class="text-sm/6 text-red-600">{{ errors && errors[0] }}</span>
+              </Field>
               <p class="mt-3 text-sm/6 text-gray-600">Write a few sentences about the product.</p>
             </div>
-  
-            
   
             <div class="col-span-full">
               <label for="cover-photo" class="block text-sm/6 font-medium text-gray-900">Cover Photo</label>
@@ -67,6 +104,10 @@
   </template>
   
   <script setup>
-  import { PhotoIcon, UserCircleIcon } from '@heroicons/vue/24/solid'
-  import { ChevronDownIcon } from '@heroicons/vue/16/solid'
+  import { PhotoIcon } from '@heroicons/vue/24/solid'
+  import { Field } from 'vee-validate'
+  
+  const onSubmit = async (values) => {
+    console.log(values)
+  }
   </script>
