@@ -32,14 +32,14 @@ class ProductController extends Controller
         $DATA = $request->validate([
             'name'  => 'required',
             'qty' => 'required|numeric',
-            'price' => 'required|decimal:0,2',
+            'price' => 'required|numeric|regex:/^\d+(\.\d{1,2})?$/',
             'description' => 'nullable'
         ]);
 
         $newProduct = Product::create($DATA);
 
         return redirect()
-            ->route('product.index')
+            ->route('products.index')
             ->with('success', 'Product created successfully');
     }
 
