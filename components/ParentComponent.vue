@@ -9,7 +9,6 @@
 
 <script>
 import FormComponent from './FormComponent.vue';
-
 export default {
   components: {
     FormComponent
